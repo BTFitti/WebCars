@@ -6,6 +6,8 @@ import { Login } from "./pages/login/index.tsx";
 import { Signup } from "./pages/signup/index.tsx";
 import { CarDetail } from "./pages/carDetail/index.tsx";
 import { Layout } from "./components/layout/index.tsx";
+import { Dashboard } from "./pages/dashboard/index.tsx";
+import { New } from "./pages/dashboard/new/index.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -21,14 +23,18 @@ const router = createBrowserRouter([
         element: <CarDetail />,
       },
       {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/signup",
-        element: <Signup />,
-      },
+        path: "/dashboard",
+        element: <Dashboard/>
+      }
     ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
   },
 ]);
 
