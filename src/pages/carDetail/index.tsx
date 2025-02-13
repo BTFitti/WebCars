@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 export function CarDetail() {
     return (
       <>

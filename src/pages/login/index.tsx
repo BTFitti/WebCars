@@ -12,10 +12,13 @@ const schema = z.object({
     .string()
     .email("Insira um email válido")
     .nonempty("O campo email é obrigatório!"),
-  password: z.string().min(5, {message: "Sua senha deve ter no mínimo 5 caracteres!"}).nonempty("O campo senha é obrigatório!"),
+  password: z
+    .string()
+    .min(5, { message: "Sua senha deve ter no mínimo 5 caracteres!" })
+    .nonempty("O campo senha é obrigatório!"),
 });
 
-type FormData = z.infer<typeof schema>;
+type FormData = z.infer<typeof schema>; //tipagem para o formulário seguir o schema
 
 export function Login() {
   const {
@@ -23,6 +26,7 @@ export function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
+    //tipando o useForm que vai seguir o FormData que segue o schema
     resolver: zodResolver(schema),
     mode: "onChange",
   });
@@ -40,28 +44,30 @@ export function Login() {
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="bg-white max-w-xl w-full rounded-lg"
+          className="bg-white max-w-2xl w-full rounded-lg p-5 flex flex-col gap-5"
         >
-          <div className="mb-3">
-            <InputComponent
-              type="email"
-              placeholder="Digite seu email"
-              name="email"
-              error={errors?.email?.message}
-              register={register}
-            />
-          </div>
-          <div className="mb-3">
-            <InputComponent
-              type="password"
-              placeholder="Digite sua senha"
-              name="password"
-              error={errors?.password?.message}
-              register={register}
-            />
-          </div>
+          <InputComponent
+            type="email"
+            placeholder="Digite seu email"
+            name="email" //o name precisa ser o mesmo do schema
+            error={errors?.email?.message}
+            register={register} //registrar o formulário no react-hook-form
+          />
 
-          <button>Acessar</button>
+          <InputComponent
+            type="password"
+            placeholder="Digite sua senha"
+            name="password" //o name precisa ser o mesmo do schema
+            error={errors?.password?.message}
+            register={register} //registrar o formulário no react-hook-form
+          />
+
+          <button
+            type="submit"
+            className="w-full cursor-pointer bg-zinc-900 rounded-sm font-medium p-2 text-2xl text-white"
+          >
+            Acessar
+          </button>
         </form>
       </div>
     </Container>

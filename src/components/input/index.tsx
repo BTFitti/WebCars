@@ -27,9 +27,9 @@ function Input({
         placeholder={placeholder}
         type={type}
         {...register(name, rules)}
-        id={name}
+        id={name}//o id vai identificar que tipo de input é, por exemplo de email ou password
       />
-      {error && <p>{error}</p>}
+      {error && <p className="text-red-400">{error}</p>}
     </div>
   );
 }
