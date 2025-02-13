@@ -77,6 +77,10 @@ export function Signup() {
             Acessar
           </button>
         </form>
+        <div className="flex gap-2 text-2xl">
+          <p> Já tem uma conta?</p>
+          <Link to={"/login"} className="underline">Faça o login!</Link>
+        </div>
       </div>
     </Container>
   );
