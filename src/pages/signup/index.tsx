@@ -1,11 +1,17 @@
 import logoImg from "../../assets/logo.svg";
 import { Container } from "../../components/container";
-import { Link } from "react-router-dom";
+import { Link,  useNavigate } from "react-router-dom";
 import InputComponent from "../../components/input";
 
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import {auth} from '../../services/firebaseConnections'
+import { createUserWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import { useEffect } from "react";
+
+
 
 const schema = z.object({
   fullName: z.string().nonempty("O campo nome é obrigatório!").min(3, "Digite seu nome completo"),
@@ -22,6 +28,15 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>; //tipagem para o formulário seguir o schema
 
 export function Signup() {
+
+  useEffect(()=>{
+    async function handleLogout(){
+      await signOut(auth)
+    }
+    handleLogout();
+  },[])
+
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -31,8 +46,21 @@ export function Signup() {
     resolver: zodResolver(schema),
     mode: "onChange",
   });
-  function onSubmit(data: FormData) {
-    console.log(data);
+
+  async function onSubmit(data: FormData) {
+    createUserWithEmailAndPassword(auth, data.email, data.password)
+    .then(async (user)=>{
+      await updateProfile(user.user, {
+        displayName: data.fullName
+      })
+      console.log("Cadastrado com sucesso");
+      navigate("/dashboard",{replace: true})
+    })
+    .catch((error)=>{
+      console.log("Erro ao cadastrar este usuário");
+      console.log(error);
+    })
+
   }
   return (
     <Container>
@@ -74,7 +102,7 @@ export function Signup() {
             type="submit"
             className="w-full cursor-pointer bg-zinc-900 rounded-sm font-medium p-2 text-2xl text-white"
           >
-            Acessar
+            Cadastrar
           </button>
         </form>
         <div className="flex gap-2 text-2xl">
