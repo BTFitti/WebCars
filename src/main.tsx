@@ -10,7 +10,7 @@ import { Dashboard } from "./pages/dashboard/index.tsx";
 import { New } from "./pages/dashboard/new/index.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AuthProvider from "./context/authContext.tsx";
-
+import { Private } from "./routes/Private.tsx";
 const router = createBrowserRouter([
   {
     element: <Layout />,
@@ -25,11 +25,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: <Dashboard />,
+        element: <Private><Dashboard/></Private>,
       },
       {
         path: "/dashboard/new",
-        element: <New />,
+        element:<Private><New /></Private>,
       },
     ],
   },

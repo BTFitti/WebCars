@@ -1,10 +1,14 @@
 import { GrLogin } from "react-icons/gr";
 import { FaRegUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/authContext";
+
 
 export function Header() {
-  const signed = false;
-  const loadingAuth = false;
+
+
+  const {signed, loadingAuth} = useContext(AuthContext)
 
 
   return (

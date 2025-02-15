@@ -16,11 +16,16 @@ interface UserProps {
   email: string | null;
 }
 export const AuthContext = createContext({} as AuthContextData);
+
 function AuthProvider({ children }: AuthProviderProps) {
+
   const [user, setUser] = useState<UserProps | null>(null);
   const [loadingAuth, setLoadingAuth] = useState(true);
+
   useEffect(() => {
+
     const unsub = onAuthStateChanged(auth, (user) => {
+      
       if (user) {
         setUser({
           uid: user.uid,
@@ -28,6 +33,7 @@ function AuthProvider({ children }: AuthProviderProps) {
           email: user?.email,
         });
         setLoadingAuth(false);
+
       } else {
         setUser(null);
         setLoadingAuth(false);
@@ -37,6 +43,7 @@ function AuthProvider({ children }: AuthProviderProps) {
         unsub()
     }
   }, []);
+
   return (
     // duas exclamações convertem uma variável para booleano, se a variável começa como null, quando convertemos uma variável nula para booleano, ela começa como false.
     // se tivesse algum valor dentro da useState como por exemplo "bruno", a conversão não seria mais para null e sim para true
