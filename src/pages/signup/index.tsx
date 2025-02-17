@@ -9,8 +9,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import {auth} from '../../services/firebaseConnections'
 import { createUserWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
-import { useEffect } from "react";
-
+import { useEffect, useContext } from "react";
+import { AuthContext } from "../../context/authContext";
 
 
 const schema = z.object({
@@ -29,6 +29,9 @@ type FormData = z.infer<typeof schema>; //tipagem para o formulário seguir o sc
 
 export function Signup() {
 
+  const { handleInfoUser} = useContext(AuthContext)
+
+
   useEffect(()=>{
     async function handleLogout(){
       await signOut(auth)
@@ -37,6 +40,7 @@ export function Signup() {
   },[])
 
   const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -52,6 +56,11 @@ export function Signup() {
     .then(async (user)=>{
       await updateProfile(user.user, {
         displayName: data.fullName
+      })
+      handleInfoUser({
+        name: data.fullName,
+        email: data.email,
+        uid: user.user.uid
       })
       console.log("Cadastrado com sucesso");
       navigate("/dashboard",{replace: true})
