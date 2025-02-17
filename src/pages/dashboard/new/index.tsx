@@ -1,8 +1,11 @@
+import { Container } from "../../../components/container";
+import { DashHeader } from "../../../components/dashboardHeader";
+
 export function New() {
     return (
-      <>
-        <h1>Página cadastrar carro</h1>
-      </>
+      <Container>
+        <DashHeader/>
+      </Container>
     );
   }
   
