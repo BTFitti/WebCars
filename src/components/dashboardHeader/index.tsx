@@ -11,7 +11,7 @@ export function DashHeader() {
       <Link
         className="relative tracking-[1px] after:absolute 
         after:content-[''] after:bg-white after:h-[3px] 
-        after:w-0 after:left-0 after:bottom-0 after:rounded-xl hover:after:w-full after:duration-300 after:ease-in-out"
+        after:w-0 after:left-0 after:-bottom-[4px] after:rounded-xl hover:after:w-full after:duration-300 after:ease-in-out"
         to={"/dashboard"}
       >
         Dashboard
@@ -29,7 +29,7 @@ export function DashHeader() {
         onClick={handleLogout}
         className="ml-auto cursor-pointer relative tracking-[1px] after:absolute 
         after:content-[''] after:bg-white after:h-[3px] 
-        after:w-0 after:left-0 after:bottom-0 after:rounded-xl hover:after:w-full after:duration-300 after:ease-in-out"
+        after:w-0 after:left-0 after:-bottom-[4px] after:rounded-xl hover:after:w-full after:duration-300 after:ease-in-out"
       >
         Sair da conta
       </button>
