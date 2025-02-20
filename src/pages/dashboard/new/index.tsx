@@ -2,7 +2,7 @@ import { ChangeEvent, useState, useContext } from "react";
 import { Container } from "../../../components/container";
 import { DashHeader } from "../../../components/dashboardHeader";
 
-import { FiUpload } from "react-icons/fi";
+import { FiUpload, FiTrash } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import Input from "../../../components/input";
 import { z } from "zod";
@@ -36,6 +36,13 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
+interface ImageItemProps {
+  uid: string;
+  name: string;
+  previewUrl: string;
+  url: string;
+}
+
 export function New() {
   const { user } = useContext(AuthContext);
   const {
@@ -47,6 +54,8 @@ export function New() {
     resolver: zodResolver(schema),
     mode: "onChange",
   });
+
+  const [carImg, setCarImg] = useState<ImageItemProps[]>([]);
 
   async function handleFile(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.files && e.target.files[0]) {
@@ -67,13 +76,23 @@ export function New() {
     }
 
     const currentUid = user?.uid;
-    const uidImage = uuidV4();
+    const uidImage = uuidV4(); //gera um Id aleatorio pra imagem
 
+    //referencia para o caminho que vai ser salvo no banco, vai ser salvo no storage, na pasta images/pasta com o id do usuário que tá cadastrando/id aleatorio da imagem enviada
     const uploadRef = ref(storage, `images/${currentUid}/${uidImage}`);
 
+    //enviando para a nossa referencia a nossa imagem recebida através da função
     uploadBytes(uploadRef, image).then((snapshot) => {
+      //pegando a url de download da imagem através do snapshot da promise
       getDownloadURL(snapshot.ref).then((downloadUrl) => {
-        console.log("URL DE ACESSO DA FOTO ", downloadUrl);
+        const imageItem = {
+          name: uidImage,
+          uid: currentUid,
+          previewUrl: URL.createObjectURL(image),
+          url: downloadUrl,
+        };
+
+        setCarImg((images) => [...images, imageItem]);
       });
     });
   }
@@ -82,24 +101,53 @@ export function New() {
     console.log(data);
   }
 
+  async function handleDeleteImg(item: ImageItemProps) {
+    const imagePath = `images/${item.uid}/${item.name}`;
+    const imageRef = ref(storage, imagePath);
+    try {
+      await deleteObject(imageRef);
+      setCarImg(carImg.filter((car) => car.url !== item.url));
+    } catch (err) {
+      console.log("erro ao deletar");
+    }
+  }
   return (
     <Container>
       <DashHeader />
 
       <div className="w-full bg-white p-3 rounded-lg flex flex-col sm:flex-row items-center gap-2">
         <button className="border-2 w-48 rounded-lg flex items-center justify-center cursor-pointer border-gray-600 h-32 md:w-48">
-          <div className="absolute cursor-pointer">
+          <div className=" absolute cursor-pointer">
             <FiUpload size={30} color="#000" />
           </div>
-          <div className="cursor-pointer">
+          <div className="  cursor-pointer">
             <input
               type="file"
               accept="image/*"
-              className="opacity-0  h-32 w-full cursor-pointer"
+              className="opacity-0 h-32 w-full cursor-pointer"
               onChange={handleFile}
             />
           </div>
         </button>
+        {carImg.map((item) => (
+          <div
+            className="w-full h-32 flex items-center justify-center relative"
+            key={item.name}
+          >
+            <button className="absolute">
+              <FiTrash
+                size={28}
+                color="#fff"
+                onClick={() => handleDeleteImg(item)}
+              />
+            </button>
+            <img
+              src={item.previewUrl}
+              className="rounded-lg w-full h-32 object-cover"
+              alt="Foto do carro"
+            />
+          </div>
+        ))}
       </div>
 
       <div className="w-full bg-white p-3 rounded-lg flex flex-col sm:flex-row items-center gap-2 mt-2">
