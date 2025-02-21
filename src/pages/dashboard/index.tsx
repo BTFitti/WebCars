@@ -10,7 +10,8 @@ import {
   doc,
   deleteDoc,
 } from "firebase/firestore";
-import { db } from "../../services/firebaseConnections";
+import { db, storage } from "../../services/firebaseConnections";
+import { ref, deleteObject} from "firebase/storage";
 import { AuthContext } from "../../context/authContext";
 interface CarProps {
   id: string;
@@ -61,10 +62,24 @@ export function Dashboard() {
     loadCars();
   }, [user]);
 
-  async function handleDeleteCar(id: string) {
-    const docRef = doc(db, "cars", id);
+  async function handleDeleteCar(car: CarProps) {
+
+    const itemCar = car;
+
+    const docRef = doc(db, "cars", itemCar.id);
     await deleteDoc(docRef);
-    setCars(cars.filter((car) => car.id !== id));
+    itemCar.images.map( async (image) => {
+      const imagePath = `images/${image.uid}/${image.name}`
+      const imageRef = ref(storage, imagePath)
+
+     try{
+      await deleteObject(imageRef)
+      setCars(cars.filter((car) => car.id !== itemCar.id));
+     }catch(err){
+      console.log("Erro ao excluir a imagem!");
+     }
+    })
+    
   }
   return (
     <Container>
@@ -74,7 +89,7 @@ export function Dashboard() {
           <section key={car.id} className="w-full bg-white rounded-lg relative">
             <button
               onClick={() => {
-                handleDeleteCar(car.id);
+                handleDeleteCar(car);
               }}
               className="absolute bg-white w-14 h-14 top-2 flex items-center justify-center right-4 rounded-full drop-shadow-2xl cursor-pointer"
             >
