@@ -11,6 +11,13 @@ import { New } from "./pages/dashboard/new/index.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AuthProvider from "./context/authContext.tsx";
 import { Private } from "./routes/Private.tsx";
+import { register } from "swiper/element";
+register();
+import 'swiper/css';
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import 'swiper/css/scrollbar'
+
 const router = createBrowserRouter([
   {
     element: <Layout />,

@@ -5,6 +5,12 @@ import { FaWhatsapp } from "react-icons/fa";
 import { getDoc, doc } from "firebase/firestore";
 import { db } from "../../services/firebaseConnections";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import SwiperCore from "swiper";
+import { Navigation } from "swiper/modules";
+SwiperCore.use([Navigation]);
+
 interface CarProps {
   id: string;
   name: string;
@@ -29,6 +35,7 @@ interface ImageCarProps {
 export function CarDetail() {
   const [car, setCar] = useState<CarProps>();
   const { id } = useParams();
+  const [sliderPreview, setSliderPreview] = useState<number>(2);
 
   useEffect(() => {
     async function loadCar() {
@@ -57,9 +64,36 @@ export function CarDetail() {
     loadCar();
   }, [id]);
 
+  useEffect(() => {
+    function handleResize(){
+      if(window.innerWidth < 720){
+        setSliderPreview(1);
+      }
+      else{
+        setSliderPreview(2);
+      }
+    }
+    handleResize()
+    window.addEventListener("resize", handleResize)
+
+    return()=>{
+      window.removeEventListener("resize", handleResize)
+    }
+  }, []);
+
   return (
     <Container>
-      <div></div>
+      <Swiper
+        slidesPerView={sliderPreview}
+        pagination={{ clickable: true }}
+        navigation
+      >
+        {car?.images.map((image) => (
+          <SwiperSlide key={image.name}>
+            <img className="w-full h-96 object-cover" src={image.url} alt="" />
+          </SwiperSlide>
+        ))}
+      </Swiper>
       {car && (
         <main className="w-full bg-white rounded-lg p-6 my-4">
           <div className="flex flex-col sm:flex-row mb-4 items-center justify-between">
