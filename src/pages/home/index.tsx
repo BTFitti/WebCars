@@ -20,6 +20,7 @@ interface CarImageProps {
 }
 export function Home() {
   const [car, setCars] = useState<CarsProps[]>([]);
+  const [loadImages, setLoadImages] = useState<string[]>([])
 
   useEffect(() => {
     async function loadCars() {
@@ -47,6 +48,10 @@ export function Home() {
     loadCars();
   }, []);
 
+  function handleImgLoad(id: string){
+    setLoadImages((prevImageLoaded)=> [...prevImageLoaded, id])
+  }
+
   return (
     <Container>
       <section className="bg-white p-4 rounded-2xl w-full max-w-5xl mx-auto flex justify-center items-center gap-1.5 lg:gap-3 mt-20">
@@ -66,15 +71,18 @@ export function Home() {
         {car.map((car) => (
           <Link key={car.id} to={`/details/${car.id}`}>
             <section className="w-full bg-white rounded-lg pb-4 drop-shadow-2xl hover:border-b-8 border-b-red-700 transition-all duration-75 ease-in-out ">
+              <div style={{display: loadImages.includes(car.id) ?  "none" : "flex"}} className="w-full h-72 rounded-lg bg-slate-200 flex items-center justify-center  text-3xl">Carregando imagens...</div>
               <img
                 src={car.images[0].url}
                 alt="Veículo 1"
                 className="w-full rounded-t-lg max-h-72"
+                onLoad={()=> handleImgLoad(car.id)}
+                style={{display: loadImages.includes(car.id) ?  "block" : "none"}}
               />
               <p className="font-bold mt-1 mb-2 px-2">{car.name}</p>
               <div className="flex flex-col px-2">
                 <strong className="text-black font-medium text-xl">
-                  {car.price.toLocaleString("pt-BR", {
+                  R$ {car.price.toLocaleString("pt-BR", {
                     style: "currency",
                     currency: "BRL",
                   })}
