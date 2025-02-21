@@ -10,13 +10,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthContext } from "../../../context/authContext";
 import { v4 as uuidV4 } from "uuid";
 
-import { storage } from "../../../services/firebaseConnections";
+import { storage, db } from "../../../services/firebaseConnections";
 import {
   ref,
   uploadBytes,
   getDownloadURL,
   deleteObject,
 } from "firebase/storage";
+import { addDoc, collection } from "firebase/firestore";
 
 const schema = z.object({
   name: z.string().nonempty("O campo nome é obrigatório"),
@@ -98,7 +99,39 @@ export function New() {
   }
 
   function onSubmit(data: FormData) {
-    console.log(data);
+    if (carImg.length === 0) {
+      alert("Envie a imagem deste carro!");
+      return;
+    }
+    const carListImages = carImg.map((car) => {
+      return {
+        uid: car.uid,
+        name: car.name,
+        url: car.url,
+      };
+    });
+    addDoc(collection(db, "cars"), {
+      name: data.name,
+      model: data.model,
+      whatsapp: data.whatsapp,
+      city: data.city,
+      year: data.year,
+      km: data.km,
+      price: data.price,
+      description: data.description,
+      created: new Date(),
+      owner: user?.name,
+      uid: user?.uid,
+      images: carListImages,
+    })
+      .then(() => {
+        reset();
+        setCarImg([]);
+        console.log("Cadastrado com sucesso!");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   async function handleDeleteImg(item: ImageItemProps) {
@@ -124,7 +157,7 @@ export function New() {
             <input
               type="file"
               accept="image/*"
-              className="opacity-0 h-32 w-full cursor-pointer"
+              className="opacity-0  h-32 w-full bg-red-400/20 min-w-48 cursor-pointer"
               onChange={handleFile}
             />
           </div>
@@ -134,10 +167,10 @@ export function New() {
             className="w-full h-32 flex items-center justify-center relative"
             key={item.name}
           >
-            <button className="absolute">
+            <button className="absolute top-2 right-2 bg-gray-700 p-1 rounded-lg cursor-pointer hover:bg-gray-800 transition-all duration-300 ">
               <FiTrash
-                size={28}
-                color="#fff"
+                size={24}
+                className="text-red-50 hover:text-red-500 transition-all duration-300"
                 onClick={() => handleDeleteImg(item)}
               />
             </button>
