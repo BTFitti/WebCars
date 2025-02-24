@@ -13,9 +13,9 @@ export function Header() {
 
   return (
     <div className="w-full flex p-5 bg-white drop-shadow mb-4">
-      <header className="w-full max-w-7xl flex items-center justify-between mx-auto px-4">
+      <header className="w-full max-w-7xl h-24 flex items-center justify-between mx-auto px-4">
         <Link to={"/"}>
-          <img src="/src/assets/logo.svg" alt="Logo do site webcars" className="hover:brightness-75 transition-all duration-75 ease-linear"/>
+          <img src="/src/assets/OIG3.png" alt="Logo do site webcars" className=" h-32 hover:brightness-75 transition-colors  "/>
         </Link>
 
         {/* <p className="italic font-bold text-3xl">Encontre sua nova paixão de 4 rodas!</p> */}
@@ -23,11 +23,11 @@ export function Header() {
         {!loadingAuth &&
           (signed ? (
             <Link to={"/dashboard"}>
-              <FaRegUserCircle size={36} color="black" />
+              <FaRegUserCircle size={40} color="black" />
             </Link>
           ) : (
             <Link to={"/login"}>
-              <GrLogin size={30} color="black" />
+              <GrLogin size={40} color="black" />
             </Link>
           ))}
        

@@ -99,8 +99,8 @@ export function New() {
   }
 
   function onSubmit(data: FormData) {
-    if (carImg.length === 0) {
-      alert("Envie a imagem deste carro!");
+    if (carImg.length < 2) {
+      alert("Envie pelo menos duas imagens deste carro!");
       return;
     }
     const carListImages = carImg.map((car) => {
@@ -144,6 +144,7 @@ export function New() {
       console.log("erro ao deletar");
     }
   }
+
   return (
     <Container>
       <DashHeader />

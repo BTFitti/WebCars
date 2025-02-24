@@ -1,4 +1,4 @@
-import logoImg from "../../assets/logo.svg";
+import logoImg from "../../assets/OIG3.png";
 import { Container } from "../../components/container";
 import { Link,  useNavigate } from "react-router-dom";
 import InputComponent from "../../components/input";
@@ -74,10 +74,10 @@ export function Signup() {
   return (
     <Container>
       {/* //centralizar tanto vertical quanto horizontal */}
-      <div className="w-full min-h-screen flex justify-center items-center flex-col gap-4">
+      <div className="w-full min-h-screen flex justify-center items-center flex-col ">
         {/* //max-w-sm (384px) e w-full vai tentar pegar o máximo disponível que é 384px */}
-        <Link to={"/"} className="mb-6 max-w-sm w-full">
-          <img src={logoImg} alt="Logo do webcars" className="w-full" />
+        <Link to={"/"} className="max-w-sm w-80">
+          <img src={logoImg} alt="Logo do webcars"  />
         </Link>
 
         <form

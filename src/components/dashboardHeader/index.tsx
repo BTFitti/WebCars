@@ -7,7 +7,7 @@ export function DashHeader() {
     await signOut(auth);
   }
   return (
-    <div className="bg-red-500 h-10 rounded-xl flex items-center gap-10 p-7 text-white text-xl mb-6">
+    <div className="bg-red-500 h-10 rounded-xl flex items-center gap-10 xl:p-7 p-2 text-white text-sm  xl:text-xl mb-6">
       <Link
         className="relative tracking-[1px] after:absolute 
         after:content-[''] after:bg-white after:h-[3px] 
