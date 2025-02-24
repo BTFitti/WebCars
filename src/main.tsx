@@ -17,6 +17,7 @@ import 'swiper/css';
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
+import { ErrorPage } from "./pages/error/index.tsx";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
     path: "/signup",
     element: <Signup />,
   },
+  {
+    path: "*",
+    element: <ErrorPage/>
+  }
 ]);
 
 createRoot(document.getElementById("root")!).render(

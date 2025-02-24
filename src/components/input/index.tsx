@@ -12,9 +12,6 @@ interface InputProps {
   error?: string;
   rules?: RegisterOptions;
 }
-function capitalizeFirstLetter(string: string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
 function Input({
   name,
   placeholder,
@@ -30,11 +27,7 @@ function Input({
         placeholder={placeholder}
         type={type}
         {...register(name, rules)}
-        id={name}//o id vai identificar que tipo de input é, por exemplo de email ou password
-        onChange={(e)=>{//função para deixar a primeira letra sempre maiúscula
-          const value = e.target.value;
-          e.target.value = capitalizeFirstLetter(value)
-        }}
+        id={name} //o id vai identificar que tipo de input é, por exemplo de email ou password
       />
       {error && <p className="text-red-400">{error}</p>}
     </div>

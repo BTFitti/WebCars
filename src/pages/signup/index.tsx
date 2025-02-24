@@ -82,7 +82,7 @@ export function Signup() {
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="bg-white max-w-2xl w-full rounded-lg p-5 flex flex-col gap-5"
+          className="bg-white max-w-2xl w-full rounded-lg p-5 flex flex-col gap-5 mb-10"
         >
           <InputComponent
             type="text"
@@ -109,15 +109,16 @@ export function Signup() {
 
           <button
             type="submit"
-            className="w-full cursor-pointer bg-zinc-900 rounded-sm font-medium p-2 text-2xl text-white"
+            className="w-full cursor-pointer bg-zinc-900 rounded-sm font-medium p-2 text-2xl text-white hover:bg-zinc-600 duration-300 ease-in-out"
           >
             Cadastrar
           </button>
         </form>
-        <div className="flex gap-2 text-2xl">
+        <div className="flex gap-2 text-2xl mb-10">
           <p> Já tem uma conta?</p>
           <Link to={"/login"} className="underline">Faça o login!</Link>
         </div>
+        <a href="/" className="underline">Voltar para a home</a>
       </div>
     </Container>
   );
