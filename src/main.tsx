@@ -13,11 +13,12 @@ import AuthProvider from "./context/authContext.tsx";
 import { Private } from "./routes/Private.tsx";
 import { register } from "swiper/element";
 register();
-import 'swiper/css';
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
-import 'swiper/css/scrollbar'
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 import { ErrorPage } from "./pages/error/index.tsx";
+import { Toaster } from "react-hot-toast";
 
 const router = createBrowserRouter([
   {
@@ -33,11 +34,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: <Private><Dashboard/></Private>,
+        element: (
+          <Private>
+            <Dashboard />
+          </Private>
+        ),
       },
       {
         path: "/dashboard/new",
-        element:<Private><New /></Private>,
+        element: (
+          <Private>
+            <New />
+          </Private>
+        ),
       },
     ],
   },
@@ -51,12 +60,13 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <ErrorPage/>
-  }
+    element: <ErrorPage />,
+  },
 ]);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
+    <Toaster position="top-center" reverseOrder={false} />
     <AuthProvider>
       <RouterProvider router={router} />
     </AuthProvider>

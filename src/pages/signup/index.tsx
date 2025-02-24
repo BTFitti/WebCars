@@ -11,6 +11,7 @@ import {auth} from '../../services/firebaseConnections'
 import { createUserWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { useEffect, useContext } from "react";
 import { AuthContext } from "../../context/authContext";
+import toast from "react-hot-toast";
 
 
 const schema = z.object({
@@ -62,8 +63,8 @@ export function Signup() {
         email: data.email,
         uid: user.user.uid
       })
-      console.log("Cadastrado com sucesso");
       navigate("/dashboard",{replace: true})
+      toast.success("Cadastrado com sucesso!")
     })
     .catch((error)=>{
       console.log("Erro ao cadastrar este usuário");
