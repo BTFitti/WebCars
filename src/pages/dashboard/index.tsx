@@ -86,7 +86,7 @@ export function Dashboard() {
     <Container>
       <DashHeader />
       {cars.length === 0 && (
-        <div className="flex flex-col items-center justify-center w-full h-full text-4xl gap-5 ">
+        <div className="flex flex-col text-center items-center justify-center w-full h-full text-4xl gap-5 ">
           <p>Você ainda não tem carros cadastrados!</p>
           <Link to="/dashboard/new">
             <p className="text-red-700 underline ">Comece agora mesmo!</p>
