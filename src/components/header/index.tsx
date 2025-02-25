@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 
 export function Header() {
-  const { signed, loadingAuth, user } = useContext(AuthContext);
+  const { signed, loadingAuth } = useContext(AuthContext);
 
   return (
     <div className="w-full flex py-5 xl:p-5 bg-white drop-shadow mb-4">
