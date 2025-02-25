@@ -1,3 +1,4 @@
+import bunnyGif from "../../assets/2309086_3e2f0.gif"
 export function ErrorPage() {
   return (
     <div className="flex  items-center  w-full h-full my-10 flex-col gap-10 ">
@@ -17,7 +18,7 @@ export function ErrorPage() {
       >
         Clique aqui para retornar a <p className="font-bold"> home</p>
       </a>
-      <img src="/src/assets/2309086_3e2f0.gif" alt="" />
+      <img src={bunnyGif} alt="" />
     </div>
   );
 }
