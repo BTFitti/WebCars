@@ -105,12 +105,6 @@ export function Home() {
        size={50}
        className="cursor-pointer hover:scale-110 duration-300"
         />
-        {/* <button
-          onClick={handleSearchCar}
-          className=" bg-red-500 h-9 px-5 lg:px-14 py-6 flex items-center  lg:text-xl rounded-lg text-white font-medium cursor-pointer hover:bg-red-800 duration-200 transition-colors"
-        >
-          Buscar
-        </button> */}
       </section>
       <h1 className="font-bold text-center text-3xl my-10 italic">
         Encontre sua nova paixão de quatro rodas!

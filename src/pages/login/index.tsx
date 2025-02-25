@@ -89,7 +89,7 @@ useEffect(()=>{
             Acessar
           </button>
         </form>
-        <div className="flex gap-2 text-2xl mb-10">
+        <div className="xl:flex text-center gap-2 text-2xl mb-10">
           <p> Ainda não tem uma conta?</p>
           <Link to={"/signup"} className="underline">
             Faça seu cadastro!
