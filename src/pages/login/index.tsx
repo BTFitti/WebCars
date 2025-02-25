@@ -45,11 +45,11 @@ useEffect(()=>{
   });
   function onSubmit(data: FormData) {
     signInWithEmailAndPassword(auth,data.email, data.password)
-    .then((user)=>{
+    .then(()=>{
       navigate("/dashboard", {replace : true})
       toast.success("Logado com sucesso!")
     })
-    .catch(err=>{
+    .catch(()=>{
       toast.error("Não existe nenhuma conta cadastrada com este endereço de email!")
     })
   }
