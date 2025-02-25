@@ -13,7 +13,7 @@ import AuthProvider from "./context/authContext.tsx";
 import { Private } from "./routes/Private.tsx";
 import { register } from "swiper/element";
 register();
-import "swiper/css";
+import 'swiper/swiper-bundle.css';
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
@@ -83,7 +83,6 @@ createRoot(document.getElementById("root")!).render(
               padding: "16px",
               color: "#121212",
             },
-            icon: "⚠️"
           }
         }}
         containerStyle={{
