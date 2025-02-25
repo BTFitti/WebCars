@@ -6,6 +6,8 @@ Projeto que simula um site de venda e troca de carros como por exemplo o WebMoto
 - React-hook-form para criação de formulários e Zod para validações avançadas.
 - TailwindCSS para a estilização priorizando sempre a acessibilidade e responsividade.
 - Reutilização de componentes para que o código seja mais limpo e performático.
+- Swiper para criar o carrossel
+- React Toast para notificar o usuário 
 # Para rodar localmente
 Para rodar o projeto na sua maquina rode o comando
 `npm install` e depois `npm run dev`
