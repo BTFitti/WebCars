@@ -3,6 +3,7 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
+import logo from "../../assets/OIG3.png"
 
 export function Header() {
   const { signed, loadingAuth } = useContext(AuthContext);
@@ -12,7 +13,7 @@ export function Header() {
       <header className="w-full max-w-7xl h-24 flex items-center justify-between mx-auto px-4 ">
         <Link to={"/"}>
           <img
-            src="/src/assets/OIG3.png"
+            src={logo}
             alt="Logo do site webcars"
             className=" h-32 hover:brightness-75"
           />
