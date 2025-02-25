@@ -94,15 +94,17 @@ export function New() {
           url: downloadUrl,
         };
 
+        if (uidImage === uidImage) {
+        }
         setCarImg((images) => [...images, imageItem]);
-        toast.success("Imagem cadastrada com sucesso!")
+        toast.success("Imagem enviada com sucesso!");
       });
     });
   }
 
   function onSubmit(data: FormData) {
     if (carImg.length < 2) {
-      toast.error("Cadastre no mínimo 2 fotos!")
+      toast.error("Envie no mínimo 2 fotos do seu carro.");
       return;
     }
     const carListImages = carImg.map((car) => {
@@ -129,12 +131,11 @@ export function New() {
       .then(() => {
         reset();
         setCarImg([]);
-        toast.success("Carro cadastrado com sucesso!")
-       
+        toast.success("Anúncio cadastrado com sucesso!");
       })
       .catch((error) => {
         console.log(error);
-        toast.error("Erro ao cadastrar o seu carro!")
+        toast.error("Erro ao cadastrar o seu anúncio");
       });
   }
 

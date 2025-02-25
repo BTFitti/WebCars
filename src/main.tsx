@@ -66,7 +66,33 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Toaster position="top-center" reverseOrder={false} />
+     <Toaster
+        position="top-center"
+        reverseOrder={false}
+        toastOptions={{
+          success: {
+            style: {
+              boxShadow: "0px 0px 10px 0px green",
+              padding: "16px",
+              color: "#121212",
+            },
+          },
+          error:{
+            style: {
+              boxShadow: "0px 0px 10px 0px red",
+              padding: "16px",
+              color: "#121212",
+            },
+            icon: "⚠️"
+          }
+        }}
+        containerStyle={{
+          top: 15,
+          left: 15,
+          bottom: 15,
+          right: 15,
+        }}
+      />
     <AuthProvider>
       <RouterProvider router={router} />
     </AuthProvider>

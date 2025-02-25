@@ -11,9 +11,10 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { db, storage } from "../../services/firebaseConnections";
-import { ref, deleteObject} from "firebase/storage";
+import { ref, deleteObject } from "firebase/storage";
 import { AuthContext } from "../../context/authContext";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 interface CarProps {
   id: string;
   name: string;
@@ -64,29 +65,34 @@ export function Dashboard() {
   }, [user]);
 
   async function handleDeleteCar(car: CarProps) {
-
     const itemCar = car;
 
     const docRef = doc(db, "cars", itemCar.id);
     await deleteDoc(docRef);
-    itemCar.images.map( async (image) => {
-      const imagePath = `images/${image.uid}/${image.name}`
-      const imageRef = ref(storage, imagePath)
+    itemCar.images.map(async (image) => {
+      const imagePath = `images/${image.uid}/${image.name}`;
+      const imageRef = ref(storage, imagePath);
 
-     try{
-      await deleteObject(imageRef)
-      setCars(cars.filter((car) => car.id !== itemCar.id));
-      
-     }catch(err){
-      console.log("Erro ao excluir a imagem!");
-     }
-    })
-    toast.success("Anúncio deletado com sucesso!")
-    
+      try {
+        await deleteObject(imageRef);
+        setCars(cars.filter((car) => car.id !== itemCar.id));
+      } catch (err) {
+        console.log("Erro ao excluir a imagem!");
+      }
+    });
+    toast.success("Anúncio deletado com sucesso!");
   }
   return (
     <Container>
       <DashHeader />
+      {cars.length === 0 && (
+        <div className="flex flex-col items-center justify-center w-full h-full text-4xl gap-5 ">
+          <p>Você ainda não tem carros cadastrados!</p>
+          <Link to="/dashboard/new">
+            <p className="text-red-700 underline ">Comece agora mesmo!</p>
+          </Link>
+        </div>
+      )}
       <main className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {cars.map((car) => (
           <section key={car.id} className="w-full bg-white rounded-lg relative">
@@ -94,12 +100,15 @@ export function Dashboard() {
               onClick={() => {
                 handleDeleteCar(car);
               }}
-              className="absolute bg-white w-14 h-14 top-2 flex items-center justify-center right-4 rounded-full drop-shadow-2xl cursor-pointer"
+              className="absolute bg-white w-12 h-12 top-2 flex items-center justify-center right-4 rounded-full drop-shadow-2xl cursor-pointer "
             >
-              <FiTrash2 size={32} color="#000" />
+              <FiTrash2
+                className="text-black hover:text-red-500 transition-colors duration-200"
+                size={32}
+              />
             </button>
             <img
-              className="w-full rounded-lg mb-2 max-h-70"
+              className="w-full rounded-t-lg mb-2 max-h-70 object-cover"
               src={car.images[0].url}
               alt=""
             />
@@ -112,8 +121,12 @@ export function Dashboard() {
                 R$ {car.price}
               </strong>
             </div>
-            <div className="w-full h-px bg-slate-200 my-2"></div>
-            <div className="px-2 pb-2">
+            <div className="w-full h-px bg-slate-200 my-4"></div>
+            <div className="gap-2 pb-2 flex">
+              <img
+                src="https://www.webmotors.com.br/assets/img/icon/icon-location.svg"
+                alt="Location"
+              />
               <span className="text-black">{car.city}</span>
             </div>
           </section>

@@ -1,4 +1,5 @@
 import { Container } from "../../components/container";
+import { CiSearch } from "react-icons/ci";
 import { useState, useEffect } from "react";
 import {
   collection,
@@ -99,15 +100,20 @@ export function Home() {
             setInput(e.target.value);
           }}
         />
-        <button
+        <CiSearch
+       onClick={handleSearchCar}
+       size={50}
+       className="cursor-pointer hover:scale-110 duration-300"
+        />
+        {/* <button
           onClick={handleSearchCar}
-          className=" bg-red-500 h-9 px-5 lg:px-14 py-6 flex items-center  lg:text-xl rounded-lg text-white font-medium cursor-pointer"
+          className=" bg-red-500 h-9 px-5 lg:px-14 py-6 flex items-center  lg:text-xl rounded-lg text-white font-medium cursor-pointer hover:bg-red-800 duration-200 transition-colors"
         >
           Buscar
-        </button>
+        </button> */}
       </section>
-      <h1 className="font-bold text-center text-3xl my-10">
-        Carros novos e usados em todo o Brasil!
+      <h1 className="font-bold text-center text-3xl my-10 italic">
+        Encontre sua nova paixão de quatro rodas!
       </h1>
 
       <main className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -126,7 +132,7 @@ export function Home() {
               <img
                 src={car.images[0].url}
                 alt="Veículo 1"
-                className="w-full rounded-t-lg max-h-72"
+                className="w-full rounded-t-lg max-h-72 object-cover"
                 onLoad={() => handleImgLoad(car.id)}
                 style={{
                   display: loadImages.includes(car.id) ? "block" : "none",

@@ -50,7 +50,7 @@ useEffect(()=>{
       toast.success("Logado com sucesso!")
     })
     .catch(err=>{
-      toast.error("Erro ao fazer o login!")
+      toast.error("Não existe nenhuma conta cadastrada com este endereço de email!")
     })
   }
   return (
@@ -84,7 +84,7 @@ useEffect(()=>{
 
           <button
             type="submit"
-            className="w-full cursor-pointer bg-zinc-900 rounded-sm font-medium p-2 text-2xl text-white"
+            className="w-full cursor-pointer bg-zinc-900 rounded-sm font-medium p-2 text-2xl text-white hover:bg-zinc-600 duration-300 ease-in-out"
           >
             Acessar
           </button>
