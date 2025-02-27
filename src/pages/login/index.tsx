@@ -18,7 +18,6 @@ const schema = z.object({
     .nonempty("O campo email é obrigatório!"),
   password: z
     .string()
-    .min(5, { message: "Sua senha deve ter no mínimo 5 caracteres!" })
     .nonempty("O campo senha é obrigatório!"),
 });
 
