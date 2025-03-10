@@ -30,7 +30,7 @@ const schema = z.object({
   whatsapp: z
     .string()
     .min(1, "O Telefone é obrigatório")
-    .refine((value) => /^(\d{11,12})$/.test(value), {
+    .refine((value) => /^(\d{12,13})$/.test(value), {
       message: "Numero de telefone inválido.",
     }),
   description: z.string().nonempty("A descrição é obrigatória"),
@@ -245,7 +245,7 @@ export function New() {
                 register={register}
                 name="whatsapp"
                 error={errors.whatsapp?.message}
-                placeholder="Ex: 011945507281..."
+                placeholder="Ex: 551199999999"
               />
             </div>
 

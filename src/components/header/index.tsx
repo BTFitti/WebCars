@@ -23,9 +23,10 @@ export function Header() {
           (signed ? (
             <Link
               to={"/dashboard"}
-              className="flex items-center justify-center gap-2 text-2xl relative tracking-[1px] after:absolute 
-                after:content-[''] after:bg-black after:h-[3px] 
-                after:w-0 after:left-12 after:-bottom-[4px] after:rounded-xl hover:after:w-31 after:duration-300 after:ease-in-out "
+              className="flex items-center justify-center gap-2 text-2xl 
+              relative tracking-[1px] after:absolute 
+                after:content-[''] after:bg-black after:h-[3px] after:-translate-x-1/2
+                after:w-0 after:left-28 after:-bottom-[4px] after:rounded-xl hover:after:w-31 after:duration-300 after:ease-in-out "
             >
               <FaRegUserCircle size={40} color="black" />
               <p>Dashboard</p>
